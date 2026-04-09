@@ -8,7 +8,7 @@ Nairobi, Kenya · Garissa Region · [Portfolio](https://gatongoalex.netlify.app)
 
 ## About Me
 
-I'm a KMTC-trained Clinical Officer transitioning into Health Informatics and Monitoring & Evaluation. With hands-on clinical experience at Kisii Teaching & Referral Hospital and Tawheed Hospital, I bridge the gap between frontline healthcare delivery and health data systems.
+I'm a Clinical Officer transitioning into Health Informatics and Monitoring & Evaluation. With hands-on clinical experience at Kisii Teaching & Referral Hospital and Tawheed Hospital, I bridge the gap between frontline healthcare delivery and health data systems.
 
 My focus is on strengthening health information systems using DHIS2, supporting evidence-based decision-making, and building M&E frameworks for NGO, UN, and Ministry of Health programmes. I am fluent in **English, Swahili, and Somali** — an operational advantage for humanitarian health work in northeastern Kenya.
 

@@ -1,53 +1,84 @@
-[README.md](https://github.com/user-attachments/files/26156348/README.md)
-# Hi, I'm Alex Gatongo Arasa 👋
 
-**Clinical Officer → Health Informatics & M&E Specialist**  
-Nairobi, Kenya · Garissa Region · [Portfolio](https://gatongoalex.netlify.app) · [LinkedIn](https://www.linkedin.com/in/alex-arasa-316b54214) · [GitHub](https://github.com/Bitange-Gatongo)
+# Alex Gatongo Arasa
+### Clinical Officer → Health Informatics & MEL Specialist
+*Bridging frontline clinical experience with data systems that drive program decisions*
 
 ---
 
 ## About Me
 
-I'm a Clinical Officer transitioning into Health Informatics and Monitoring & Evaluation. With hands-on clinical experience at Kisii Teaching & Referral Hospital and Tawheed Hospital, I bridge the gap between frontline healthcare delivery and health data systems.
+I am a registered Clinical Officer with 4+ years of frontline experience in
+reproductive health, NCD management, and maternal & child health across public
+and private health facilities in Kenya. I am actively transitioning into Health
+Informatics and Monitoring, Evaluation & Learning — bringing a capability most
+MEL candidates cannot replicate: I understand data at the point of generation.
 
-My focus is on strengthening health information systems using DHIS2, supporting evidence-based decision-making, and building M&E frameworks for NGO, UN, and Ministry of Health programmes. I am fluent in **English, Swahili, and Somali** — an operational advantage for humanitarian health work in northeastern Kenya.
+Having personally filled MOH registers, managed ANC4+ patient follow-up, and
+witnessed how data quality failures at facility level cascade into flawed county
+dashboards and donor reports, I built my informatics skills to fix that problem
+systematically — not just report it.
+
+My technical work spans DHIS2 configuration, KoBoToolbox data pipelines,
+GIS-based health analytics, and MEL framework design — all grounded in Kenya
+MOH and PEPFAR MER standards. I can talk clinical to health workers and talk
+data to the technical team. That dual fluency is what strengthens health
+information systems at the point where they most often break.
 
 ---
 
-## Skills & Tools
+## Technical Skills
 
 **Health Information Systems**
+DHIS2 · KoBoToolbox · eCHIS · KenyaEMR · DATIM · KHIS2
 
-![DHIS2](https://img.shields.io/badge/DHIS2-1a6b3c?style=flat-square&logo=data:image/png;base64,iVBORw0KGgo=&logoColor=white)
-![DATIM](https://img.shields.io/badge/DATIM-0067b8?style=flat-square&logoColor=white)
-![KoBoToolbox](https://img.shields.io/badge/KoBoToolbox-e85d26?style=flat-square&logoColor=white)
-![ODK](https://img.shields.io/badge/ODK-43a047?style=flat-square&logoColor=white)
+**MEL & Data Quality**
+RDQA methodology · Verification Factor analysis · Indicator development · 
+IRS design · MEL Plan development · PEPFAR MER indicators (HTS_TST, TX_CURR, TX_PVLS)
+Theory of Change · Logic Models · Results Frameworks
 
-**Data & Analysis**
-
-![R](https://img.shields.io/badge/R-276DC3?style=flat-square&logo=r&logoColor=white)
-![SQL](https://img.shields.io/badge/SQL-4479A1?style=flat-square&logo=postgresql&logoColor=white)
-![Excel](https://img.shields.io/badge/Excel-217346?style=flat-square&logo=microsoft-excel&logoColor=white)
-
-**M&E Frameworks**
-- Logic Model · Theory of Change · Results Chain · MEL Plan design
-- Indicator tracking · Data quality assurance · Donor reporting (PUDR, SitReps)
+**Data & Analytics**
+SQL · Excel (pivot tables, COUNTIF/SUMIF, data cleaning) · R (in progress) ·
+DHIS2 Maps · GIS spatial analysis · Thematic analysis · Mixed methods evaluation
 
 **Clinical Background**
-- Clinical assessment & triage · NCD management · Maternal & child health
+Clinical assessment & triage · NCD management · Maternal & child health ·
+Reproductive health · ANC follow-up · MOH register management
 
 ---
 
 ## Featured Projects
 
 ### 🗺️ Garissa County Malaria Burden Mapping
-GIS-based malaria surveillance dashboard built in DHIS2, mapping disease burden across Garissa County sub-counties using org unit hierarchies and thematic maps.
+Malaria burden in Garissa County is unevenly distributed across facility
+catchments — yet resource allocation historically treated all sub-counties
+equally. This project uses DHIS2 Maps to conduct subnational GIS analysis
+of malaria incidence, producing choropleth and bubble map visualizations
+disaggregated by facility catchment. Confirmed versus treated trend analysis
+is layered against OPD benchmarks to identify facilities where treatment
+gaps signal data quality issues or service delivery failures — with findings
+designed to inform evidence-based resource prioritization by the County
+Health Management Team.
 
 ### 📋 NCD Tracker Program
-A DHIS2 Tracker programme for non-communicable disease management with clinical decision-support program rules, validation logic, and automated alerts.
+Routine paper registers cannot flag overdue patients, track retention, or
+alert clinicians to dangerous clinical thresholds. This DHIS2 Tracker program
+brings individual-level NCD patient follow-up into the national HMIS
+infrastructure — with 8 clinical decision-support program rules, automated
+alerts for missed refills and abnormal BP, and outcome-level indicators
+tracking retention rate and BP control percentage. All thresholds based on
+Kenya MOH NCD Clinical Guidelines 2020 and designed by a practicing
+Clinical Officer to reduce alert fatigue while supporting real clinical decisions.
 
-### ✅ Data Quality Validation Framework
-A DHIS2-based data quality framework including validation rules, consistency checks, and outlier detection — designed for HMIS reporting environments.
+### ✅ HMIS Data Quality Validation Framework
+Routine HMIS data in Kenya is frequently incomplete, inconsistent, and
+submitted late — undermining program decision making at every level. This
+DHIS2-based framework provides systematic, automated data quality monitoring
+aligned to the PEPFAR DQA five-dimension standard: 15 validation rules
+covering logical consistency, completeness monitoring with automated alerts,
+outlier detection using min/max bounds, and reporting rate tracking at
+facility, sub-county, and county level. Supports RDQA by providing
+pre-visit completeness dashboards and Verification Factor tracking
+with 90–110% acceptable threshold.
 
 > 🔗 Live demo & documentation: [gatongoalex.netlify.app](https://gatongoalex.netlify.app)
 
@@ -55,10 +86,14 @@ A DHIS2-based data quality framework including validation rules, consistency che
 
 ## Certifications & Education
 
-**DHIS2 Academy** — Multiple certifications including:
-- DHIS2 Fundamentals
-- Aggregate Customization
-- Tracker Capture & Configuration
+**DHIS2 Academy** — 5 certifications including:
+- Aggregate Customization Fundamentals
+- Aggregate Data Analysis Fundamentals
+- Aggregate Data Capture & Validation Fundamentals
+- Event Configuration Fundamentals
+- Planning & Budgeting DHIS2 Implementations
+
+**M&E Fundamentals** — Certified
 
 **Kenya Medical Training College (KMTC) — Webuye**
 Diploma in Clinical Medicine & Surgery · Graduated 2022
@@ -67,9 +102,10 @@ Diploma in Clinical Medicine & Surgery · Graduated 2022
 
 ## Currently
 
-- 📊 Building R skills (foundations → tidyverse → health data workflows)
-- 🌍 Expanding into M&E roles with USAID-funded partners and county health teams
-- 🤝 Open to volunteer and entry-level M&E / HIS opportunities in Garissa region
+- 📊 Building R skills — tidyverse, ggplot2, survey package, KDHS data workflows
+- 🌍 Targeting MEL Officer roles with USAID, Global Fund, and UN-funded partners
+- 🔬 Developing a full KoBo → SQL → DHIS2 → Power BI data pipeline portfolio project
+- 🤝 Open to volunteer and entry-level M&E / HIS opportunities in Kenya
 
 ---
 
@@ -81,8 +117,4 @@ Diploma in Clinical Medicine & Surgery · Graduated 2022
 
 ---
 
-*Committed to data-driven health systems that serve underserved communities.*
-
----
-
-![Profile Views](https://komarev.com/ghpvc/?username=Bitange-Gatongo&style=flat-square&color=1a6b3c)
+*Committed to data-driven health systems that serve underserved communities in Kenya.*

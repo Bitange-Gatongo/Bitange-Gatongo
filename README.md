@@ -1,173 +1,211 @@
-[README(1).md](https://github.com/user-attachments/files/27101477/README.1.md)
-# Alex Gatongo Arasa
-### Clinical Officer → Health Informatics & MEL Specialist
+# MMI Kenya — Complete MEL Data System
 
-> *Bridging frontline clinical experience with data systems that drive program decisions*
+> A production-grade Monitoring, Evaluation and Learning data system built for a PEPFAR-aligned HIV/PMTCT community health program in Nairobi County informal settlements.
 
 ---
 
-## About Me
+## What This Repository Contains
 
-I am a registered Clinical Officer with 4+ years of frontline experience in reproductive health, NCD management, and maternal & child health across public and private health facilities in Kenya. I am actively transitioning into Health Informatics and Monitoring, Evaluation & Learning — bringing a capability most MEL candidates cannot replicate: **I understand data at the point of generation.**
+This repository demonstrates a complete, end-to-end MEL data pipeline — from mobile data collection in the field through automated transfer to a live program performance dashboard.
 
-Having personally filled MOH registers, managed ANC4+ patient follow-up, and witnessed how data quality failures at facility level cascade into flawed county dashboards and donor reports, I built my informatics skills to fix that problem systematically — not just report it.
-
-My technical work spans DHIS2 configuration, KoBoToolbox data pipelines, GIS-based health analytics, and MEL framework design — all grounded in Kenya MOH and PEPFAR MER standards. I can talk clinical to health workers and talk data to the technical team. That dual fluency is what strengthens health information systems at the point where they most often break.
+```
+Field (CHV tablet)
+    │
+    ▼
+KoBoToolbox Forms          ← Session 1: XLSForm design
+    │
+    ▼
+Python Pipeline            ← Session 3: Automated API transfer
+    │
+    ▼
+DHIS2 Program Dashboard    ← Session 2: Configuration and visualization
+```
 
 ---
 
-## Technical Skills
+## Repository Structure
 
-| Domain | Tools & Methods |
+```
+mmi-kenya-mel-system/
+│
+├── forms/
+│   ├── community-hts-register/
+│   │   ├── mmi_hts_v1.xlsx          # XLSForm — Community HTS Register
+│   │   └── README.md                # Form documentation
+│   │
+│   └── mentor-mother-contact-log/
+│       ├── mmi_mm_v1.xlsx           # XLSForm — Mentor Mother Contact Log
+│       └── README.md                # Form documentation
+│
+├── pipeline/
+│   ├── kobo_to_dhis2_pipeline.py    # KoBoToolbox → DHIS2 automated transfer
+│   ├── generate_dhis2_data.py       # Test data generator (12 months)
+│   └── README.md                    # Pipeline documentation
+│
+├── dhis2/
+│   └── configuration_guide.md       # DHIS2 setup documentation
+│
+└── README.md                         # This file
+```
+
+---
+
+## Program Context
+
+**Program:** MMI Kenya HIV/PMTCT Community Health Program
+**Target population:** HIV-positive pregnant women and key populations in Nairobi County informal settlements (Mathare, Korogocho, Mukuru)
+**Facilities:** 5 target public health facilities
+**Donor framework:** PEPFAR MER-aligned, USAID RBM framework
+
+---
+
+## MEL System Components
+
+### 1. Data Collection — KoBoToolbox XLSForms
+
+Two production-grade data collection instruments built in XLSForm:
+
+**Community HTS Register** (`mmi_hts_v1.xlsx`)
+- 43 questions across 6 sections
+- GPS coordinate capture for location verification
+- Advanced skip logic — 15 relevant conditions
+- Constraint validation — age bounds, phone format, date validation
+- Client protection design — ID-based not name-based
+- Targets: CHVs conducting community HIV testing
+
+**Mentor Mother Contact Log** (`mmi_mm_v1.xlsx`)
+- 41 questions across 6 sections
+- PMTCT cascade tracking — ART, delivery, EID, prophylaxis
+- Protection monitoring — GBV and mental health screening
+- Quality contact measurement — duration-based
+- Targets: Mentor Mothers supporting HIV-positive pregnant women
+
+### 2. DHIS2 Configuration
+
+Complete DHIS2 2.42 program configuration:
+
+| Component | Count | Details |
+|---|---|---|
+| Data elements | 19 | PEPFAR MER-aligned, coded |
+| Categories | 4 | Sex, Age Band, KP Type, HTS Result |
+| Category combinations | 5 | Including full PEPFAR MER disaggregation |
+| Indicators | 9 | Calculated from data element pairs |
+| Dataset sections | 4 | HTS, PMTCT/MM, ART, RDQA |
+| Dashboard visualizations | 8 | Line, bar, gauge, stacked, combined |
+
+**Indicators configured:**
+
+| Indicator | Formula |
 |---|---|
-| **Health Information Systems** | DHIS2 · KoBoToolbox · eCHIS · KenyaEMR · DATIM · KHIS2 |
-| **MEL & Data Quality** | RDQA methodology · Verification Factor analysis · Indicator development · MEL Plan development · PEPFAR MER indicators (HTS_TST · TX_CURR · TX_PVLS) · Theory of Change · Logic Models · Results Frameworks |
-| **Data & Analytics** | SQL · Python (openpyxl · requests · pandas) · Excel (pivot tables · COUNTIF/SUMIF · data cleaning) · R (in progress) · DHIS2 Maps · GIS spatial analysis |
-| **Evaluation Methods** | Thematic analysis · Framework analysis · Mixed methods · Cost-effectiveness analysis · Sampling design · Gender-responsive MEL · GESI frameworks |
-| **Clinical Background** | Clinical assessment & triage · NCD management · Maternal & child health · Reproductive health · ANC follow-up · MOH register management |
+| HIV Positivity Rate | HTS_TST_POS / HTS_TST × 100 |
+| 30-Day Linkage Rate | HTS_LINKED_30 / HTS_TST_POS × 100 |
+| EMTCT Cascade Completion | PMTCT_CASCADE / PMTCT_DELIVERY × 100 |
+| Viral Suppression Rate | TX_PVLS_NUM / TX_PVLS_DEN × 100 |
+| ART 12-Month Retention | TX_RET_NUM / TX_RET_DEN × 100 |
+| EID Coverage | EID_DONE / EID_ELIGIBLE × 100 |
+| RDQA Verification Ratio | RDQA_SOURCE / RDQA_REPORTED |
+| MM Contact Rate | MM_CONTACTS / PMTCT_ENROLLED |
+| Referral Completion Rate | HTS_REFERRAL / HTS_TST_POS × 100 |
+
+### 3. Automated Pipeline
+
+Python pipeline connecting KoBoToolbox to DHIS2:
+
+- Authenticates with both systems via API tokens
+- Pulls all submissions with automatic pagination
+- Aggregates individual records into monthly facility totals
+- Maps KoBoToolbox field values to DHIS2 data element UIDs
+- Pushes aggregate values via DHIS2 dataValueSets API
+- Logs every operation to `pipeline.log` for audit trail
+- Handles errors gracefully — skips bad records, continues processing
+
+**Transformation logic:**
+
+```
+KoBoToolbox individual records     →    DHIS2 aggregate values
+─────────────────────────────────────────────────────────────
+session_date field                 →    Monthly period (YYYYMM)
+sub_location field                 →    Org unit UID
+hts_result = positive (count)      →    HTS_TST_POS value
+referral_outcome = accepted (count)→    HTS_REFERRAL value
+art_initiated = yes (count)        →    HTS_LINKED_30 value
+```
 
 ---
 
-## Featured Projects
+## Data and Testing
 
----
+The DHIS2 instance is populated with programmatically generated test data
+simulating 12 months of implementation across 5 facilities.
 
-### 🏥 MMI Kenya — Full MEL Data System
-*KoBoToolbox · DHIS2 · Python · XLSForm*
+**Generation principles:**
 
-Most MEL portfolios show individual tools in isolation. This project demonstrates a complete, end-to-end MEL data system built for a PEPFAR-aligned HIV/PMTCT program — from data collection instrument design through automated pipeline to live program dashboard.
+1. **Evidence-based baselines** — HIV positivity rates (7–11%), viral suppression
+   (84–91%), and retention rates (80–88%) derived from NASCOP annual reports
+   and PEPFAR Kenya program data for comparable facility types.
 
-**What was built:**
+2. **Realistic implementation trajectory** — Four-phase ramp-up curve:
 
-- **Two production-grade XLSForm data collection instruments** — a Community HTS Register and a Mentor Mother Contact Log — with advanced skip logic, GPS capture, constraint validation, and client protection design (ID-based, not name-based)
-- **Full DHIS2 program configuration** — 19 data elements with PEPFAR MER-aligned disaggregations, 9 calculated indicators, a sectioned monthly dataset, and an 8-visualization program performance dashboard
-- **Automated Python pipeline** — pushes KoBoToolbox submissions to DHIS2 via API with data transformation, error handling, and import logging
-- **Complete MEL framework** — log frame, indicator reference sheet, Theory of Change, assumption map, and RDQA protocols grounded in the FCDO VfM four E's framework
+   | Phase | Months | Capacity |
+   |---|---|---|
+   | Early implementation | 1–3 | 65% |
+   | Momentum building | 4–6 | 80% |
+   | Near-full operation | 7–9 | 92% |
+   | Steady state | 10–12 | 100% |
 
-**Program context:** Five HIV/PMTCT facilities in Nairobi County informal settlements. Indicators include HTS positivity rate, 30-day linkage rate, EMTCT cascade completion, viral suppression rate (TX_PVLS), ART 12-month retention, and RDQA verification ratio.
+3. **DATIM-consistent validation** — Positive results never exceed total tests,
+   cascade completions never exceed deliveries, suppression numerators
+   never exceed denominators.
 
----
+4. **RDQA trajectory** — Verification ratios deliberately show poor data
+   quality early (0.78–0.92) improving to acceptable range (0.92–1.08)
+   as data systems mature — reflecting real PEPFAR facility patterns.
 
-#### 📊 Data and Testing
-
-The DHIS2 instance is populated with programmatically generated test data simulating 12 months of program implementation across five facilities.
-
-Test data was generated using a custom Python script (`generate_dhis2_data.py`) built on three design principles:
-
-**1 — Evidence-based baseline values**
-Facility baselines were derived from published PEPFAR Kenya program data, NASCOP annual reports, and Kenya DHS 2022 estimates for Garissa County. HIV positivity rates of 7–11% across facilities reflect the actual positivity range reported in northeastern Kenya's community testing programs. Viral suppression rates of 84–91% reflect NASCOP-reported TX_PVLS performance for facilities at comparable ART program maturity levels.
-
-**2 — Realistic implementation trajectory**
-The script models a four-phase implementation curve consistent with USAID implementing partner startup analyses:
-
-| Phase | Months | Capacity | What it reflects |
-|---|---|---|---|
-| Early implementation | 1–3 | 65% | Staff recruitment, CHV training, community sensitization |
-| Momentum building | 4–6 | 80% | Systems stabilizing, caseloads growing |
-| Near-full operation | 7–9 | 92% | Mentor Mothers fully deployed, referral pathways functional |
-| Steady state | 10–12 | 100% | Full program capacity, mature data systems |
-
-**3 — Internal data consistency**
-All generated values maintain the logical relationships enforced by PEPFAR DATIM validation rules:
-- HIV positive results never exceed total tests conducted
-- Cascade completions never exceed enrolled women with delivery outcomes
-- Viral suppression numerators never exceed denominators
-- RDQA verification ratios simulate real data quality improvement — poor in early months (0.78–0.92), improving to acceptable range (0.92–1.08) as data systems mature
-
-The script uses a fixed random seed per facility-month combination — making the dataset fully reproducible. Running the script twice against the same DHIS2 instance produces identical results.
-
-**Reproducing the test data:**
 ```bash
-# Install dependencies
+# Reproduce the test dataset
 pip install requests python-dateutil
-
-# Run against your DHIS2 instance
 python generate_dhis2_data.py
 ```
 
-> **Note:** All data in this repository is synthetic. No real patient data or facility records were used at any stage of this project.
+> **Note:** All data is synthetic. No real patient records were used.
 
 ---
 
-### 🗺️ Garissa County Malaria Burden Mapping
-*DHIS2 Maps · GIS · Spatial Analysis*
+## MEL Framework Behind This System
 
-Malaria burden in Garissa County is unevenly distributed across facility catchments — yet resource allocation historically treated all sub-counties equally. This project uses DHIS2 Maps to conduct subnational GIS analysis of malaria incidence, producing choropleth and bubble map visualizations disaggregated by facility catchment.
+This technical system is grounded in a complete MEL conceptual framework:
 
-Confirmed versus treated trend analysis is layered against OPD benchmarks to identify facilities where treatment gaps signal data quality issues or service delivery failures — with findings designed to inform evidence-based resource prioritization by the County Health Management Team.
-
----
-
-### 📋 NCD Tracker Program
-*DHIS2 Tracker · Program Rules · Clinical Decision Support*
-
-Routine paper registers cannot flag overdue patients, track retention, or alert clinicians to dangerous clinical thresholds. This DHIS2 Tracker program brings individual-level NCD patient follow-up into the national HMIS infrastructure — with 8 clinical decision-support program rules, automated alerts for missed refills and abnormal BP, and outcome-level indicators tracking retention rate and BP control percentage.
-
-All thresholds based on Kenya MOH NCD Clinical Guidelines 2020 and designed by a practicing Clinical Officer to reduce alert fatigue while supporting real clinical decisions.
+- **Results framework** — Log frame with 4 output and 4 purpose-level indicators
+- **Indicator reference sheets** — 12-component specifications for all 9 indicators
+- **Theory of Change** — Explicit assumption map with criticality/confidence ratings
+- **RDQA protocols** — Quarterly verification ratio assessment with 0.90–1.10 threshold
+- **Adaptive management** — Pause-and-reflect cycle fed by dashboard data
+- **PEPFAR MER alignment** — HTS_TST, TX_CURR, TX_PVLS, TX_NEW per MER guidance
+- **GESI integration** — Sex and age disaggregation, KP-specific indicators
+- **VfM framework** — Cost per output tracking design built into dataset structure
 
 ---
 
-### ✅ HMIS Data Quality Validation Framework
-*DHIS2 · PEPFAR DQA · RDQA · Validation Rules*
+## Technical Requirements
 
-Routine HMIS data in Kenya is frequently incomplete, inconsistent, and submitted late — undermining program decision making at every level. This DHIS2-based framework provides systematic, automated data quality monitoring aligned to the PEPFAR DQA five-dimension standard:
+```
+Python 3.11+
+requests
+python-dateutil
+openpyxl
 
-- 15 validation rules covering logical consistency
-- Completeness monitoring with automated alerts
-- Outlier detection using min/max bounds
-- Reporting rate tracking at facility, sub-county, and county level
-- Pre-visit completeness dashboards supporting RDQA
-- Verification Factor tracking with 90–110% acceptable threshold
-
-🔗 **Live demo & documentation:** [gatongoalex.netlify.app](https://gatongoalex.netlify.app)
+DHIS2 2.38+
+KoBoToolbox account (free tier sufficient)
+```
 
 ---
 
-## MEL Competencies
+## Author
 
-Beyond technical tools, my MEL practice is grounded in a complete conceptual framework covering:
+**Alex Gatongo Arasa**
+Clinical Officer → Health Informatics & MEL Specialist
+Nairobi, Kenya
 
-- **Adaptive Management** — CLA framework, learning agendas, pause-and-reflect cycles, adaptation logs
-- **Sampling & Data Collection Design** — Probability sampling, LQAS, RDQA, instrument design, mixed methods
-- **Results-Based Management** — Log frame construction and critique, indicator development, VfM reporting
-- **Qualitative Data Analysis** — Thematic analysis, framework analysis, content analysis, Most Significant Change
-- **Gender-Responsive MEL** — GESI framework, USAID ADS 205, three-tier indicator design, feminist MEL
-- **Cost-Effectiveness Analysis** — FCDO VfM four E's, CEA calculation, sensitivity analysis, DALY methods
-- **Impact Evaluation Design** — RCTs, stepped-wedge, DiD, RDD, PSM, ITS
-
----
-
-## Certifications & Education
-
-**DHIS2 Academy** — 5 certifications:
-- Aggregate Customization Fundamentals
-- Aggregate Data Analysis Fundamentals
-- Aggregate Data Capture & Validation Fundamentals
-- Event Configuration Fundamentals
-- Planning & Budgeting DHIS2 Implementations
-
-**M&E Fundamentals** — Certified
-
-**Kenya Medical Training College (KMTC) — Webuye**
-Diploma in Clinical Medicine & Surgery · Graduated 2022
-
----
-
-## Currently
-
-- 📊 Building R skills — tidyverse, ggplot2, survey package, KDHS data workflows
-- 🌍 Targeting MEL Officer roles with USAID, Global Fund, and UN-funded partners in Kenya
-- 🔬 Completing KoBo → DHIS2 automated pipeline portfolio project
-- 🤝 Open to volunteer and entry-level M&E / HIS opportunities in Kenya
-
----
-
-## Connect
-
-🌐 [Portfolio](https://gatongoalex.netlify.app) &nbsp;|&nbsp;
-💼 [LinkedIn](https://linkedin.com) &nbsp;|&nbsp;
+🌐 [Portfolio](https://gatongoalex.netlify.app) |
+💼 [LinkedIn](https://linkedin.com/in/alex-arasa-316b54214) |
 🐙 [GitHub](https://github.com/Bitange-Gatongo)
-
----
-
-*Committed to data-driven health systems that serve underserved communities in Kenya.*

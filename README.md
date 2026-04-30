@@ -1,6 +1,6 @@
 # MMI Kenya — Complete MEL Data System
 
-> A production-grade Monitoring, Evaluation and Learning data system built for a PEPFAR-aligned HIV/PMTCT community health program in Nairobi County informal settlements.
+> A production-grade Monitoring, Evaluation and Learning data system built for a PEPFAR-aligned HIV/PMTCT community health program in Garissa County across 5 Health units.
 
 ---
 

@@ -1,9 +1,9 @@
 <div align="center">
 
 # Alex Gatongo Arasa
-### Health Informatics & MEAL Professional | Clinical Officer | DHIS2 Specialist
+### MEAL Professional | Clinical Officer | Health Informatics Specialist
 
-*Bridging frontline clinical practice and data systems to make health program evidence actionable*
+*I design M&E systems, manage health program data, and ensure evidence reaches decision-makers — on time and with confidence*
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/alex-arasa-316b54214)
 [![Portfolio](https://img.shields.io/badge/Portfolio-FF5722?style=for-the-badge&logo=google-chrome&logoColor=white)](https://gatongoalex.netlify.app)
@@ -15,28 +15,35 @@
 
 ## Who I Am
 
-I am a registered Clinical Officer based in Nairobi, Kenya, with hands-on experience in HIV/PMTCT care, community health, and facility-level program delivery. Over the past two years I have systematically built a parallel expertise in health informatics and monitoring, evaluation, and learning — not as a theoretical pursuit, but by building real systems that solve real data problems in the Kenyan health context.
+I am a registered Clinical Officer and MEAL practitioner based in Nairobi, Kenya. I have worked at the facility level in HIV/PMTCT and community health programs — which means I understand what data means at the point of care, not just at the point of reporting.
 
-I design and implement end-to-end data pipelines, configure DHIS2 for program-specific indicator tracking, and translate clinical program logic into structured M&E frameworks. My work sits at the intersection of two roles that are usually separate — MEAL practitioner and health informatics technician — and I bring both to every project.
+That clinical grounding shapes everything I build. When I design an M&E framework, configure DHIS2 indicators, or structure a data collection tool, I do it with a clear understanding of what community health workers can realistically capture, what program managers actually need to see, and what donors require for accountability.
+
+The projects in this portfolio are not engineering exercises. They are responses to real problems in Kenya's health data ecosystem — fragmented reporting, delayed aggregation, and M&E frameworks that measure outputs without tracking outcomes.
 
 ---
 
-## ⚡ Key Achievements
+## ⚡ What I Bring to a MEAL Role
 
-- 🔁 **Built a production-grade KoBo → DHIS2 pipeline** for an HIV/PMTCT program portfolio — handling form design, data cleaning, SQL aggregation, UID validation, dry-run pre-checks, and automated import logging
-- 📊 **Configured DHIS2 end-to-end** — data elements, indicators, category combos, org unit hierarchies, validation rules, and program dashboards for Garissa County and MMI Kenya contexts
-- 🗺️ **Built a GIS malaria burden mapping dashboard** for Garissa County using DHIS2 Maps and real facility-level data
-- 📋 **Designed full M&E frameworks** for HIV, PMTCT, and NCD programs including Theory of Change, log frames, indicator matrices, DQA protocols, and PEPFAR MER alignment (TX_CURR, TX_PVLS, HTS, KP)
+- 📋 **M&E framework design** — Theory of Change, log frames, indicator matrices, DQA protocols, and PEPFAR MER alignment (TX_CURR, TX_PVLS, HTS_TST, KP indicators) for HIV, PMTCT, and NCD programs
+- 📊 **DHIS2 configuration** — data elements, indicators, validation rules, org unit hierarchies, and program dashboards configured end-to-end for Kenya health program contexts
+- 🗺️ **GIS and data visualisation** — facility-level malaria burden mapping for Garissa County; indicator dashboards for program performance monitoring
+- 🔁 **Data pipeline automation** — eliminated manual CSV aggregation in an HIV/PMTCT program by building an automated flow from KoBoToolbox to DHIS2, reducing data lag and removing human error from the reporting cycle
+- 🩺 **Clinical credibility** — active facility-level experience in PMTCT and HTS means my M&E systems reflect how care is actually delivered, not how it looks on paper
 - 🎓 **6 DHIS2 Academy certifications** — Aggregate Customization, Data Analysis, Data Capture & Validation, Event Configuration, Planning & Budgeting, and Tracker
-- 📝 **Registered Clinical Officer** — active PMTCT and HTS program experience at facility level, giving my data systems clinical credibility that pure informaticians lack
 
 ---
 
-## 🔁 Featured Project: KoBo → DHIS2 Automated Data Pipeline
+## 🔁 Featured Project: Automated HIV/PMTCT Reporting Pipeline
 
-> *Solving the data silos that make health programs fly blind*
+> *From community health worker to national dashboard — without the three-week wait*
 
-Most health programs collect data at the community level and aggregate it manually — weeks later, in spreadsheets, by programme officers who are already stretched thin. This pipeline automates that entire cycle.
+In most NGO health programs, data collected by community health workers takes weeks to reach program managers. It moves through paper registers, manual Excel compilation, and email chains — by the time it informs a decision, the moment has passed.
+
+This project automates that entire cycle for an HIV/PMTCT program, pulling structured data from KoBoToolbox, validating and aggregating it, and pushing clean indicator values directly into DHIS2. Program managers see updated dashboards within hours of data submission, not weeks.
+
+**The M&E problem it solves:** Delayed, manually aggregated data that cannot support adaptive management.
+**The technical approach:** A validated, auditable pipeline with error logging at every stage so data quality is traceable, not assumed.
 
 ### Data Flow
 
